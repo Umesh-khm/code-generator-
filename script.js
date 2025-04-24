@@ -5,7 +5,7 @@ async function generateCode() {
   output.textContent = "⏳ Generating code...";
 
   try {
-    const res = await fetch("https://your-backend-url.onrender.com/generate", {
+    const res = await fetch("https://code-generator-x3de.onrender.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
