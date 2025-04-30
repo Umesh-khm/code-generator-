@@ -17,7 +17,7 @@ headers = {
 def home():
     return "CodeGen API (via Hugging Face) ✅"
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['POST'])
 def generate_code():
     data = request.get_json()
     prompt = data.get("prompt")
