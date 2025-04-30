@@ -13,11 +13,11 @@ headers = {
     "Authorization": f"Bearer {HF_API_KEY}"
 }
 
-@app.route('/')
+@app.route('/random')
 def home():
     return "CodeGen API (via Hugging Face) ✅"
 
-@app.route('/generate', methods=['POST'])
+@app.route('/', methods=['POST'])
 def generate_code():
     data = request.get_json()
     prompt = data.get("prompt")
