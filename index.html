@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Code Generator | Hugging Face + Flask</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>AI Code Generator</h1>
+    <textarea id="prompt" placeholder="Enter your prompt here... (e.g., Write Python code for linear search)"></textarea>
+    <button onclick="generateCode()">Generate Code</button>
+    <div id="loader" style="display: none;">Generating...</div>
+    <pre id="output"></pre>
+    <div id="error"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
