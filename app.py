@@ -34,12 +34,18 @@ def generate_code():
     }
 
     try:
-        response = requests.post(API_URL, headers=headers, json=payload)
-        result = response.json()
+        response = requests.post(API_URL, headers=headers, json=payload, timeout=60)
+        
+        try:
+            result = response.json()
+        except ValueError:
+            return jsonify({"error": "Invalid JSON received from Hugging Face"}), 500
 
-        # Error check
         if isinstance(result, dict) and result.get("error"):
             return jsonify({"error": result["error"]}), 500
+
+        if not isinstance(result, list) or len(result) == 0 or "generated_text" not in result[0]:
+            return jsonify({"error": "No generated text in response"}), 500
 
         generated_text = result[0]["generated_text"]
 
@@ -50,6 +56,7 @@ def generate_code():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
