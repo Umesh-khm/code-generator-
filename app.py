@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # ✅ CORS import
 import requests
 import os
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})  # ✅ CORS enabled for all routes and origins
 
 # Hugging Face Model API URL
 API_URL = "https://api-inference.huggingface.co/models/Salesforce/codegen-350M-multi"
