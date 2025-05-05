@@ -1,3 +1,24 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS  # ✅ CORS import
+import requests
+import os
+
+app = Flask(__name__)  # Ensure app is defined here
+CORS(app, resources={r"/*": {"origins": "*"}})  # ✅ CORS enabled for all routes and origins
+
+# Hugging Face Model API URL
+API_URL = "https://api-inference.huggingface.co/models/Salesforce/codegen-350M-multi"
+
+# Hugging Face Token (Environment Variable se lena)
+HF_API_KEY = os.getenv("HF_API_KEY")
+headers = {
+    "Authorization": f"Bearer {HF_API_KEY}"
+}
+
+@app.route('/')
+def home():
+    return "CodeGen API (via Hugging Face) ✅"
+
 @app.route('/analyze', methods=['POST'])  # 🔁 Renamed from /generate
 def analyze_code():
     data = request.get_json()
@@ -40,3 +61,8 @@ def analyze_code():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
