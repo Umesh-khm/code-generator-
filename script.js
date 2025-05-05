@@ -1,4 +1,4 @@
-const backendURL = "https://code-generator-x3de.onrender.com/generate";
+const backendURL = "https://code-generator-x3de.onrender.com/analyze"; // Updated to /analyze
 
 async function generateCode() {
   const prompt = document.getElementById("prompt").value.trim();
