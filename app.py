@@ -2,18 +2,20 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
 import os
-import logging  # ✅ Logging added for production visibility
+import logging
 
-# ✅ Configure logging format and level
+# ✅ Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})  # ✅ Enable CORS for all routes
 
-# ✅ Hugging Face Model API
+# ✅ HIGHLIGHTED CHANGE — CORS now restricted to your GitHub Pages frontend
+CORS(app, origins=["https://umesh-khm.github.io"], methods=["GET", "POST", "OPTIONS"])
+
+# Hugging Face API endpoint
 API_URL = "https://api-inference.huggingface.co/models/Salesforce/codegen-350M-multi"
 
-# ✅ API Key from Render's environment variables
+# API Key from environment variable
 HF_API_KEY = os.getenv("HF_API_KEY")
 if not HF_API_KEY:
     logging.error("Missing Hugging Face API key. Set HF_API_KEY in environment variables.")
@@ -80,5 +82,5 @@ def analyze_code():
         return jsonify({"error": "Internal server error", "details": str(e)}), 500
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # ✅ Use environment port on Render
+    port = int(os.environ.get("PORT", 5000))
     app.run(debug=False, host='0.0.0.0', port=port)
