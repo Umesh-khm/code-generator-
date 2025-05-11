@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import requests
 import os
 import logging
 
@@ -16,7 +15,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(me
 app = Flask(__name__)
 
 # ✅ HIGHLIGHTED CHANGE — CORS now restricted to your GitHub Pages frontend
-CORS(app, origins=["*"], methods=["GET", "POST", "OPTIONS"])
+CORS(app, methods=["GET", "POST", "OPTIONS"])
 
 
 @app.route('/')
