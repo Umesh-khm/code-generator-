@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 import logging
-
+# all fine
 # Use a pipeline as a high-level helper
 from transformers import pipeline
 
